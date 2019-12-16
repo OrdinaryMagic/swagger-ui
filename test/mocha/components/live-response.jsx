@@ -4,6 +4,7 @@ import { fromJSOrdered } from "core/utils"
 import expect, { createSpy } from "expect"
 import { shallow } from "enzyme"
 import Curl from "components/curl"
+import Wget from "components/wget"
 import LiveResponse from "components/live-response"
 import ResponseBody from "components/response-body"
 
@@ -36,7 +37,7 @@ describe("<LiveResponse/>", function(){
   ]
 
   tests.forEach(function(test) {
-    it("passes " + test.expected.request + " to Curl when showMutatedRequest = " + test.showMutatedRequest, function() {
+    it("passes " + test.expected.request + " to Curl|Wget when showMutatedRequest = " + test.showMutatedRequest, function() {
 
       // Given
 
@@ -51,15 +52,16 @@ describe("<LiveResponse/>", function(){
       })
 
       let mutatedRequestForSpy = createSpy().andReturn(mutatedRequest)
-      let requestForSpy = createSpy().andReturn(request) 
+      let requestForSpy = createSpy().andReturn(request)
 
       let components = {
         curl: Curl,
+        wget: Wget,
         responseBody: ResponseBody
       }
 
       let props = {
-        response: response, 
+        response: response,
         specSelectors: {
           mutatedRequestFor: mutatedRequestForSpy,
           requestFor: requestForSpy,
@@ -82,6 +84,10 @@ describe("<LiveResponse/>", function(){
       const curl = wrapper.find(Curl)
       expect(curl.length).toEqual(1)
       expect(curl.props().request).toBe(requests[test.expected.request])
+
+      const wget = wrapper.find(Wget)
+      expect(wget.length).toEqual(1)
+      expect(wget.props().request).toBe(requests[test.expected.request])
 
       const expectedUrl = requests[test.expected.request].get("url")
       expect(wrapper.find("div.request-url pre.microlight").text()).toEqual(expectedUrl)
