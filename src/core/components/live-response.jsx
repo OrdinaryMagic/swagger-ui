@@ -63,6 +63,7 @@ export default class LiveResponse extends React.Component {
     const contentType = headers["content-type"] || headers["Content-Type"]
 
     const Curl = getComponent("curl")
+    const Wget = getComponent("wget")
     const ResponseBody = getComponent("responseBody")
     const returnObject = headersKeys.map(key => {
       return <span className="headerline" key={key}> {key}: {headers[key]} </span>
@@ -72,12 +73,13 @@ export default class LiveResponse extends React.Component {
     return (
       <div>
         { curlRequest && <Curl request={ curlRequest }/> }
+        { curlRequest && <Wget request={ curlRequest }/> }
         { url && <div>
-            <h4>Request URL</h4>
-            <div className="request-url">
-              <pre className="microlight">{url}</pre>
-            </div>
+          <h4>Request URL</h4>
+          <div className="request-url">
+            <pre className="microlight">{url}</pre>
           </div>
+        </div>
         }
         <h4>Server response</h4>
         <table className="responses-table live-responses-table">
@@ -88,39 +90,39 @@ export default class LiveResponse extends React.Component {
           </tr>
           </thead>
           <tbody>
-            <tr className="response">
-              <td className="response-col_status">
-                { status }
-                {
-                  notDocumented ? <div className="response-undocumented">
-                                    <i> Undocumented </i>
-                                  </div>
-                                : null
-                }
-              </td>
-              <td className="response-col_description">
-                {
-                  isError ? <span>
+          <tr className="response">
+            <td className="response-col_status">
+              { status }
+              {
+                notDocumented ? <div className="response-undocumented">
+                    <i> Undocumented </i>
+                  </div>
+                  : null
+              }
+            </td>
+            <td className="response-col_description">
+              {
+                isError ? <span>
                               {`${response.get("name")}: ${response.get("message")}`}
                             </span>
-                          : null
-                }
-                {
-                  body ? <ResponseBody content={ body }
-                                       contentType={ contentType }
-                                       url={ url }
-                                       headers={ headers }
-                                       getComponent={ getComponent }/>
-                       : null
-                }
-                {
-                  hasHeaders ? <Headers headers={ returnObject }/> : null
-                }
-                {
-                  displayRequestDuration && duration ? <Duration duration={ duration } /> : null
-                }
-              </td>
-            </tr>
+                  : null
+              }
+              {
+                body ? <ResponseBody content={ body }
+                                     contentType={ contentType }
+                                     url={ url }
+                                     headers={ headers }
+                                     getComponent={ getComponent }/>
+                  : null
+              }
+              {
+                hasHeaders ? <Headers headers={ returnObject }/> : null
+              }
+              {
+                displayRequestDuration && duration ? <Duration duration={ duration } /> : null
+              }
+            </td>
+          </tr>
           </tbody>
         </table>
       </div>
