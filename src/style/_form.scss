@@ -156,6 +156,22 @@ textarea
 
         @include text_code($form-textarea-curl-font-color);
     }
+
+    &.wget
+    {
+      font-size: 12px;
+
+      min-height: 100px;
+      margin: 0;
+      padding: 10px;
+
+      resize: none;
+
+      border-radius: 4px;
+      background: $form-textarea-curl-background-color;
+
+      @include text_code($form-textarea-curl-font-color);
+    }
 }
 
 

@@ -64,6 +64,7 @@ import Footer from "core/components/footer"
 import FilterContainer from "core/containers/filter"
 import ParamBody from "core/components/param-body"
 import Curl from "core/components/curl"
+import Wget from "core/components/wget"
 import Schemes from "core/components/schemes"
 import SchemesContainer from "core/containers/schemes"
 import ModelCollapse from "core/components/model-collapse"
@@ -131,6 +132,7 @@ export default function() {
       FilterContainer,
       ParamBody: ParamBody,
       curl: Curl,
+      wget: Wget,
       schemes: Schemes,
       SchemesContainer,
       modelExample: ModelExample,
